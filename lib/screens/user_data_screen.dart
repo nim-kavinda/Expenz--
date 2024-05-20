@@ -1,5 +1,7 @@
 import 'package:expenz/Widgets/custom_btn.dart';
 import 'package:expenz/constant/constant.dart';
+import 'package:expenz/screens/main_screen.dart';
+import 'package:expenz/servises/user_servises.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
@@ -118,7 +120,7 @@ class _UsaerDataScreenState extends State<UsaerDataScreen> {
                         height: 15,
                       ),
                       TextFormField(
-                        controller: _passwordController,
+                        controller: _confirmPasswordController,
                         validator: (value) {
                           //valid user name
                           if (value!.isEmpty) {
@@ -164,7 +166,7 @@ class _UsaerDataScreenState extends State<UsaerDataScreen> {
                         height: 30,
                       ),
                       GestureDetector(
-                        onTap: () {
+                        onTap: () async {
                           if (_formKey.currentState!.validate()) {
                             //form is valide,
                             String userName = _userNameController.text;
@@ -173,8 +175,23 @@ class _UsaerDataScreenState extends State<UsaerDataScreen> {
                             String confirmPassword =
                                 _confirmPasswordController.text;
 
-                            print(
-                                "$userName $email $password $confirmPassword");
+                            //save the user name and email in the device storage
+                            await UserServices.storeUserDetails(
+                                userName: userName,
+                                email: email,
+                                password: password,
+                                confirmPassword: confirmPassword,
+                                context: context);
+
+                            //navigat to the main screen
+                            if (context.mounted) {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const MainScreen(),
+                                ),
+                              );
+                            }
                           }
                         },
                         child: const CustomBtn(
