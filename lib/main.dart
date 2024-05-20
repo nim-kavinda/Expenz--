@@ -1,4 +1,6 @@
+import 'package:expenz/Widgets/wrapper.dart';
 import 'package:expenz/screens/onbording_screens.dart';
+import 'package:expenz/servises/user_servises.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -18,13 +20,26 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: "Expenze",
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        fontFamily: "Inter",
-      ),
-      home: const OnbordingScreen(),
+    return FutureBuilder(
+      future: UserServices.checkUserName(),
+      builder: (context, snapshot) {
+        //if the snapshot is still wating
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const CircularProgressIndicator();
+        } else {
+          // here the hasUserName will be set to true of the data is thir in the snapshot and otherwise flase
+          bool hasUserName = snapshot.data ?? false;
+          return MaterialApp(
+              title: "Expenze",
+              debugShowCheckedModeBanner: false,
+              theme: ThemeData(
+                fontFamily: "Inter",
+              ),
+              home: Wrapper(
+                showMainScreen: hasUserName,
+              ));
+        }
+      },
     );
   }
 }
