@@ -1,3 +1,4 @@
+import 'package:expenz/screens/onbording_screens.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -20,17 +21,7 @@ class _MyAppState extends State<MyApp> {
       theme: ThemeData(
         fontFamily: "Inter",
       ),
-      home: Scaffold(
-        body: Center(
-          child: Text(
-            "Hello Flutter",
-            style: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ),
-      ),
+      home: const OnbordingScreen(),
     );
   }
 }
