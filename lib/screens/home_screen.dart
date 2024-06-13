@@ -100,7 +100,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           )
                         ],
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
                       const Row(
@@ -131,22 +131,3 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
-
-
-// Container(
-//                     decoration: BoxDecoration(
-//                       borderRadius: BorderRadius.circular(100),
-//                       color: kMainColor,
-//                       border: Border.all(
-//                         color: kMainColor,
-//                         width: 3,
-//                       ),
-//                     ),
-//                     child: ClipRect(
-//                       child: Image.asset(
-//                         "assets/images/user.jpg",
-//                         width: 50,
-//                         fit: BoxFit.cover,
-//                       ),
-//                     ),
-//                   )

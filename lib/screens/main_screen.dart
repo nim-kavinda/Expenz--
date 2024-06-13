@@ -20,9 +20,9 @@ class _MainScreenState extends State<MainScreen> {
   Widget build(BuildContext context) {
     //screenList
     final List<Widget> pages = [
+      AddNewScreen(),
       HomeScreen(),
       TransactionScreen(),
-      AddNewScreen(),
       BudgetScreen(),
       ProfileScreen(),
     ];
@@ -55,7 +55,7 @@ class _MainScreenState extends State<MainScreen> {
           ),
           BottomNavigationBarItem(
             icon: Container(
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: kMainColor,
                 shape: BoxShape.circle,
               ),
