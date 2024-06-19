@@ -47,4 +47,30 @@ class Expenze {
     required this.time,
     required this.description,
   });
+
+  //Convert the expenze object to a JASON object
+  Map<String, dynamic> toJSON() {
+    return {
+      'id': id,
+      'title': title,
+      'amount': amount,
+      'category': catogary.index,
+      'date': date.toIso8601String(),
+      'time': time.toIso8601String(),
+      'description': description,
+    };
+  }
+
+  //create an Expenze object from a JSON object
+  factory Expenze.fromJSON(Map<String, dynamic> json) {
+    return Expenze(
+      id: json['id'],
+      title: json['title'],
+      amount: json['amount'],
+      catogary: ExpenzeCategoaries.values[json['category']],
+      date: DateTime.parse(json['date']),
+      time: DateTime.parse(json['time']),
+      description: json['description'],
+    );
+  }
 }
