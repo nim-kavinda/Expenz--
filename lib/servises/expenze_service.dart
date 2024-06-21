@@ -7,7 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class ExpenzeService {
   //expenze list
 
-  List<Expenze> expenzeList = [];
+  //List<Expenze> expenzeList = [];
 
   //Define the key from storing expenses in shared prefrences
 
@@ -55,7 +55,7 @@ class ExpenzeService {
       if (context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
-            content: Text("Erro on Adding Expenzes!"),
+            content: Text("Error on Adding Expenzes!"),
             duration: Duration(
               seconds: 2,
             ),
@@ -65,19 +65,7 @@ class ExpenzeService {
     }
   }
 
+  loadExpenzes() {}
+
   //Load the expenzes from the shared prefrences
-
-  Future<List<Expenze>> loadExpenzes() async {
-    SharedPreferences pref = await SharedPreferences.getInstance();
-    List<String>? existingExpenze = pref.getStringList(_expenzeKey);
-
-    //Convert the Existing expenzes to a list of Expenzes objects
-    List<Expenze> loadedExpenzes = [];
-
-    if (existingExpenze != null) {
-      loadedExpenzes =
-          existingExpenze.map((e) => Expenze.fromJSON(json.decode(e))).toList();
-    }
-    return loadedExpenzes;
-  }
 }
