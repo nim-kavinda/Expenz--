@@ -63,33 +63,41 @@ class _HomeScreenState extends State<TransactionScreen> {
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
-                      ListView.builder(
-                        shrinkWrap: true,
-                        scrollDirection: Axis.vertical,
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemCount: widget.expenzesList.length,
-                        itemBuilder: (context, index) {
-                          final expenze = widget.expenzesList[index];
+                      widget.expenzesList.isEmpty
+                          ? Text(
+                              "No Expenzes Added Yet.Add Some Expenzes See Here",
+                              style: TextStyle(
+                                fontSize: 16,
+                                color: kGrey,
+                              ),
+                            )
+                          : ListView.builder(
+                              shrinkWrap: true,
+                              scrollDirection: Axis.vertical,
+                              physics: const NeverScrollableScrollPhysics(),
+                              itemCount: widget.expenzesList.length,
+                              itemBuilder: (context, index) {
+                                final expenze = widget.expenzesList[index];
 
-                          return Dismissible(
-                            key: ValueKey(expenze),
-                            direction: DismissDirection.startToEnd,
-                            onDismissed: (direction) {
-                              setState(() {
-                                widget.omDismisedExpenzes(expenze);
-                              });
-                            },
-                            child: ExpenzeCard(
-                              title: expenze.title,
-                              date: expenze.date,
-                              amount: expenze.amount,
-                              category: expenze.catogary,
-                              description: expenze.description,
-                              time: expenze.time,
+                                return Dismissible(
+                                  key: ValueKey(expenze),
+                                  direction: DismissDirection.startToEnd,
+                                  onDismissed: (direction) {
+                                    setState(() {
+                                      widget.omDismisedExpenzes(expenze);
+                                    });
+                                  },
+                                  child: ExpenzeCard(
+                                    title: expenze.title,
+                                    date: expenze.date,
+                                    amount: expenze.amount,
+                                    category: expenze.catogary,
+                                    description: expenze.description,
+                                    time: expenze.time,
+                                  ),
+                                );
+                              },
                             ),
-                          );
-                        },
-                      )
                     ],
                   ),
                 ),
@@ -115,33 +123,41 @@ class _HomeScreenState extends State<TransactionScreen> {
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
-                      ListView.builder(
-                        shrinkWrap: true,
-                        scrollDirection: Axis.vertical,
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemCount: widget.incomeList.length,
-                        itemBuilder: (context, index) {
-                          final income = widget.incomeList[index];
+                      widget.incomeList.isEmpty
+                          ? Text(
+                              "No Incomes Added Yet.Add Some Incomes See Here",
+                              style: TextStyle(
+                                fontSize: 16,
+                                color: kGrey,
+                              ),
+                            )
+                          : ListView.builder(
+                              shrinkWrap: true,
+                              scrollDirection: Axis.vertical,
+                              physics: const NeverScrollableScrollPhysics(),
+                              itemCount: widget.incomeList.length,
+                              itemBuilder: (context, index) {
+                                final income = widget.incomeList[index];
 
-                          return Dismissible(
-                            key: ValueKey(income),
-                            direction: DismissDirection.startToEnd,
-                            onDismissed: (direction) {
-                              setState(() {
-                                widget.omDismisedIncome(income);
-                              });
-                            },
-                            child: IncomeCard(
-                              title: income.title,
-                              date: income.date,
-                              amount: income.amount,
-                              category: income.catogary,
-                              description: income.description,
-                              time: income.time,
-                            ),
-                          );
-                        },
-                      )
+                                return Dismissible(
+                                  key: ValueKey(income),
+                                  direction: DismissDirection.startToEnd,
+                                  onDismissed: (direction) {
+                                    setState(() {
+                                      widget.omDismisedIncome(income);
+                                    });
+                                  },
+                                  child: IncomeCard(
+                                    title: income.title,
+                                    date: income.date,
+                                    amount: income.amount,
+                                    category: income.catogary,
+                                    description: income.description,
+                                    time: income.time,
+                                  ),
+                                );
+                              },
+                            )
                     ],
                   ),
                 ),
