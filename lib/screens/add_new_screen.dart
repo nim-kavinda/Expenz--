@@ -72,6 +72,7 @@ class _AddNewScreenState extends State<AddNewScreen> {
                           onTap: () {
                             setState(() {
                               _selectedMethod = 0;
+                              print("Selected Method:${_selectedMethod}");
                             });
                           },
                           child: Container(

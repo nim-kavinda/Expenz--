@@ -63,7 +63,7 @@ class IncomeService {
     SharedPreferences pref = await SharedPreferences.getInstance();
     List<String>? existingincome = pref.getStringList(_incomeKey);
 
-    //Convert the Existing expenzes to a list of Expenzes objects
+    //Convert the Existing income to a list of income objects
     List<Income> loadedIncome = [];
 
     if (existingincome != null) {
@@ -71,5 +71,53 @@ class IncomeService {
           existingincome.map((e) => Income.fromJSON(json.decode(e))).toList();
     }
     return loadedIncome;
+  }
+
+  //function delete income service
+
+  Future<void> deleteIncome(int id, BuildContext context) async {
+    try {
+      SharedPreferences pref = await SharedPreferences.getInstance();
+      List<String>? existingIncome = pref.getStringList(_incomeKey);
+
+      //Convert the Existing income to a list of income objects
+      List<Income> existingIncomeObjects = [];
+
+      if (existingIncome != null) {
+        existingIncomeObjects = existingIncome
+            .map((e) => Income.fromJSON(json.decode((e))))
+            .toList();
+      }
+
+      // remove the income with the given id from the list
+      existingIncomeObjects.removeWhere((income) => income.id == id);
+
+      //convert the list of income objects back to a list of strings
+      List<String> UpdateddIncome =
+          existingIncomeObjects.map((e) => json.encode(e)).toList();
+
+      //Save the updated list of expenzes to shared prefrences
+      await pref.setStringList(_incomeKey, UpdateddIncome);
+
+      //Show massege
+
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text("Income Deleted Succesfull"),
+          duration: Duration(
+            seconds: 3,
+          ),
+        ));
+      }
+    } catch (e) {
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text("Error Deleting Income"),
+          duration: Duration(
+            seconds: 3,
+          ),
+        ));
+      }
+    }
   }
 }

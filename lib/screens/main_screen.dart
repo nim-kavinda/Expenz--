@@ -30,7 +30,7 @@ class _MainScreenState extends State<MainScreen> {
     List<Expenze> loadedExpenzes = await ExpenzeService().loadExpenzes();
     setState(() {
       expenzeList = loadedExpenzes;
-      print(expenzeList.length);
+      print("Fetch All Expenzes :${expenzeList.length}");
     });
   }
 
@@ -39,7 +39,7 @@ class _MainScreenState extends State<MainScreen> {
     List<Income> incomeExpenzes = await IncomeService().loadIncome();
     setState(() {
       incomeList = incomeExpenzes;
-      print(incomeList.length);
+      print("Fetch All Income :${incomeList.length}");
     });
   }
 
@@ -72,18 +72,39 @@ class _MainScreenState extends State<MainScreen> {
     });
   }
 
+  //function to remove a expenzes
+  void removeExpenzes(Expenze expense) {
+    ExpenzeService().deleteExpenzes(expense.id, context);
+    setState(() {
+      expenzeList.remove(expense);
+    });
+  }
+
+  //function to remove a income
+  void removeIncome(Income income) {
+    IncomeService().deleteIncome(income.id, context);
+    setState(() {
+      incomeList.remove(income);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     //screenList
     final List<Widget> pages = [
-      HomeScreen(),
-      TransactionScreen(),
+      const HomeScreen(),
+      TransactionScreen(
+        omDismisedIncome: removeIncome,
+        incomeList: incomeList,
+        omDismisedExpenzes: removeExpenzes,
+        expenzesList: expenzeList,
+      ),
       AddNewScreen(
         addExpenze: addNewExpenzes,
         addIncome: addNewIncome,
       ),
-      BudgetScreen(),
-      ProfileScreen(),
+      const BudgetScreen(),
+      const ProfileScreen(),
     ];
 
     return Scaffold(
