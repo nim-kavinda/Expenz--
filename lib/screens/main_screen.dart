@@ -88,11 +88,47 @@ class _MainScreenState extends State<MainScreen> {
     });
   }
 
+  //category Total expenze
+  Map<ExpenzeCategoaries, double> calculateExpenzeCategories() {
+    Map<ExpenzeCategoaries, double> categoryTotals = {
+      ExpenzeCategoaries.food: 0,
+      ExpenzeCategoaries.health: 0,
+      ExpenzeCategoaries.shopping: 0,
+      ExpenzeCategoaries.subscriptions: 0,
+      ExpenzeCategoaries.transport: 0,
+    };
+
+    for (Expenze expenze in expenzeList) {
+      categoryTotals[expenze.catogary] =
+          categoryTotals[expenze.catogary]! + expenze.amount;
+    }
+    return categoryTotals;
+  }
+
+  //category Total income
+  Map<IncomeCatogary, double> calculateIncomeCategories() {
+    Map<IncomeCatogary, double> categoryTotals = {
+      IncomeCatogary.freelance: 0,
+      IncomeCatogary.passive: 0,
+      IncomeCatogary.salary: 0,
+      IncomeCatogary.sales: 0,
+    };
+
+    for (Income income in incomeList) {
+      categoryTotals[income.catogary] =
+          categoryTotals[income.catogary]! + income.amount;
+    }
+    return categoryTotals;
+  }
+
   @override
   Widget build(BuildContext context) {
     //screenList
     final List<Widget> pages = [
-      const BudgetScreen(),
+      BudgetScreen(
+        expenzecategoryTotal: calculateExpenzeCategories(),
+        incomecategoryTotal: calculateIncomeCategories(),
+      ),
       HomeScreen(
         incomeList: incomeList,
         expenseList: expenzeList,
