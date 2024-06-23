@@ -1,3 +1,4 @@
+import 'package:expenz/servises/expenze_service.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -55,5 +56,12 @@ class UserServices {
     String? email = pref.getString("email");
 
     return {"username": userName!, "email": email!};
+  }
+
+  //remove the username and password
+  static Future<void> clearUserData() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    await pref.remove('username');
+    await pref.remove('email');
   }
 }

@@ -138,4 +138,26 @@ class ExpenzeService {
       }
     }
   }
+
+  //delete all the expenze from shared prefrences
+  Future<void> deleteAllExpenzes(BuildContext context) async {
+    try {
+      SharedPreferences pref = await SharedPreferences.getInstance();
+      await pref.remove(_expenzeKey);
+      //show massege
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text("All Expenzes Deleted"),
+          duration: Duration(seconds: 3),
+        ));
+      }
+    } catch (e) {
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text("Error Deleted All Expenzes"),
+          duration: Duration(seconds: 3),
+        ));
+      }
+    }
+  }
 }

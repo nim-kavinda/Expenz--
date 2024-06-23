@@ -153,11 +153,11 @@ class _BudgetScreenState extends State<BudgetScreen> {
                   itemCount: data.length,
                   itemBuilder: (context, index) {
                     final category = data.keys.toList()[index];
-                    final totle = data.values.toList()[index];
+                    final t = data.values.toList()[index];
 
                     return CategoryCard(
                       title: category.name,
-                      amount: totle,
+                      amount: t,
                       totle: data.values
                           .reduce((value, element) => value + element),
                       progresColor: getCategoryColor(category),
